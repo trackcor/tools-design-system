@@ -9,7 +9,7 @@ Tokens, components and screen references for **Trackcor Tools**, the managed too
 | Design system reference | [index.html](https://trackcor.github.io/tools-design-system/) |
 | Tokens, the source of truth | `project/tokens.css` |
 | Component classes | `project/components.css` |
-| Original Claude Design canvas | `project/canvas/` |
+| Original Claude Design canvas | Private, in `trackcor/tools` at `design/canvas/` |
 
 ---
 
@@ -21,7 +21,7 @@ The Angular app vendors these tokens into `src/styles.scss`. When the app and th
 
 ### The two rules that govern everything
 
-**1. The primary blue never carries status meaning.** Kansanshi blue `#2A5EBF` was chosen from three candidates because it holds as an 11px label, a 6px progress fill and a 1px focus ring without reading as a state. `#27406E` sits too near ink so the focus ring stops registering on a sunlit screen; `#3B7DE8` is bright enough that a blue progress fill starts reading as a status of its own.
+**1. The primary blue never carries status meaning.** Foreman blue `#2A5EBF` was chosen from three candidates because it holds as an 11px label, a 6px progress fill and a 1px focus ring without reading as a state. `#27406E` sits too near ink so the focus ring stops registering on a sunlit screen; `#3B7DE8` is bright enough that a blue progress fill starts reading as a status of its own.
 
 **2. Semantic colour and rigging period colour are separated by shape, not hue.** Period colours are physical tape on a sling, so they cannot be recoloured to suit the palette.
 
@@ -54,9 +54,10 @@ project/
 ├── base.css        ← reset, type roles, focus, tabular numerals
 ├── components.css  ← .tc-* product UI
 ├── index.html      ← the reference page rendered from the tokens
-├── favicon.svg
-└── canvas/         ← the original Claude Design .dc.html and support.js
+└── favicon.svg
 ```
+
+The original Claude Design canvas (`.dc.html` plus `support.js`) is kept in the private [trackcor/tools](https://github.com/trackcor/tools) repo under `design/canvas/`, because it carries client names that do not belong in a public repository.
 
 ---
 
