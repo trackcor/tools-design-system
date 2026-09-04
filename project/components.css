@@ -189,3 +189,37 @@
    A confident full sentence with context. Never a shrug, never an illustration. */
 .tc-empty { color: var(--tc-text); font-size: var(--tc-size-page-subtitle); line-height: 22px; }
 .tc-empty__lead { color: var(--tc-ink); font-weight: 500; }
+/* --- Eyebrow -------------------------------------------------------------
+   Small-caps label above a heading or a value. The same treatment as a
+   section label, named for its position rather than its role. */
+.tc-eyebrow {
+  font-size: var(--tc-size-section-label);
+  font-weight: 600;
+  letter-spacing: var(--tc-track-label);
+  text-transform: uppercase;
+  color: var(--tc-text-muted);
+}
+
+/* --- Spinner -------------------------------------------------------------
+   For in-button and action states only. Content loading uses skeleton rows,
+   never a spinner: a spinner on page load tells the user nothing about what
+   is arriving. Sized to sit on a 38px button without shifting it. */
+.tc-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: tc-spin 0.7s linear infinite;
+  vertical-align: -2px;
+}
+.tc-spinner--lg { width: 20px; height: 20px; border-width: 2.5px; }
+
+@keyframes tc-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tc-spinner { animation-duration: 2s; }
+}
