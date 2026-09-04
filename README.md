@@ -6,10 +6,10 @@ Tokens, components and screen references for **Trackcor Tools**, the managed too
 
 | What | Where |
 |---|---|
-| Design system reference | [index.html](https://trackcor.github.io/tools-design-system/) |
-| Tokens, the source of truth | `project/tokens.css` |
+| **The design system** | [index.html](https://trackcor.github.io/tools-design-system/) — the Claude Design canvas itself, rendered |
+| Tokens, the source of truth for the app | `project/tokens.css` |
 | Component classes | `project/components.css` |
-| Original Claude Design canvas | Private, in `trackcor/tools` at `design/canvas/` |
+| CSS reference page | [tokens.html](https://trackcor.github.io/tools-design-system/tokens.html) — the same tokens as plain CSS |
 
 ---
 
@@ -50,14 +50,18 @@ No dark mode in v1: tokens are structured so it is possible later, but do not im
 
 ```
 project/
-├── tokens.css      ← start here, every --tc-* token
+├── index.html      ← the Claude Design canvas, the design system itself
+├── support.js      ← the canvas runtime it loads
+├── tokens.css      ← start here for code, every --tc-* token
 ├── base.css        ← reset, type roles, focus, tabular numerals
 ├── components.css  ← .tc-* product UI
-├── index.html      ← the reference page rendered from the tokens
+├── tokens.html     ← CSS reference page, built from the tokens
 └── favicon.svg
 ```
 
-The original Claude Design canvas (`.dc.html` plus `support.js`) is kept in the private [trackcor/tools](https://github.com/trackcor/tools) repo under `design/canvas/`, because it carries client names that do not belong in a public repository.
+`index.html` is the authored design and is the thing to look at. The three CSS files are the same decisions expressed as code, for the Angular app to vendor; they are derived from the canvas, not the other way round. If the two ever disagree, **the canvas is the design and the CSS is the bug.**
+
+The canvas published here has client names replaced (the primary blue is named Foreman rather than a client site, and sample rows use generic sections). The unedited original is in the private [trackcor/tools](https://github.com/trackcor/tools) repo under `design/canvas/`.
 
 ---
 
