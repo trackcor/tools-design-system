@@ -122,4 +122,4 @@ The two device frames in `mobile/` are canvas scaffolding, the OS chrome the scr
 
 ---
 
-Design by Claude Design, September 2026. Built by [Obsydian Technologies](https://obsydiantechnologies.com) for Trackcor Africa.
+Design by Claude Design, September 2026.
