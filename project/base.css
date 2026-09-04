@@ -1,0 +1,93 @@
+/* Trackcor Tools — reset, typography and page scaffolding. Load after tokens.css. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--tc-canvas);
+  color: var(--tc-ink);
+  font-family: var(--tc-font);
+  font-size: var(--tc-size-body);
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums lining-nums;  /* every number, everywhere */
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--tc-primary); text-decoration: none; }
+a:hover { color: var(--tc-primary-dark); text-decoration: underline; }
+
+::selection { background: var(--tc-primary-tint); }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--tc-focus-ring);
+  border-radius: var(--tc-radius-sm);
+}
+
+svg.lucide { stroke-width: 1.75; }
+
+/* --- Type roles --------------------------------------------------------- */
+
+.tc-page-title {
+  font-size: var(--tc-size-page-title);
+  line-height: 34px;
+  font-weight: 600;
+  letter-spacing: var(--tc-track-title);
+  color: var(--tc-ink);
+  margin: 0;
+}
+
+/* The one permitted appearance of gold in the product. 2px, under a page
+   title, never anywhere else. Warning never appears as a rule. */
+.tc-page-rule {
+  width: 44px;
+  height: 2px;
+  background: var(--tc-gold);
+  margin: 10px 0 0;
+}
+
+.tc-page-subtitle {
+  font-size: var(--tc-size-page-subtitle);
+  line-height: 22px;
+  font-weight: 400;
+  color: var(--tc-text);
+  margin: 10px 0 0;
+}
+
+.tc-section-label {
+  font-size: var(--tc-size-section-label);
+  font-weight: 600;
+  letter-spacing: var(--tc-track-label);
+  text-transform: uppercase;
+  color: var(--tc-text);
+}
+
+.tc-hero {
+  font-size: var(--tc-size-hero);
+  font-weight: 600;
+  letter-spacing: var(--tc-track-hero);
+  color: var(--tc-ink);
+  font-variant-numeric: tabular-nums lining-nums;
+  line-height: 1.05;
+}
+
+/* Grey line beneath a derived value explaining how it was computed.
+   Used constantly: status is derived, never typed. */
+.tc-derivation {
+  font-size: var(--tc-size-derivation);
+  line-height: 18px;
+  font-weight: 400;
+  color: var(--tc-text);
+}
+
+.tc-mono {
+  font-family: var(--tc-font-mono);
+  font-size: var(--tc-size-system-value);
+  font-weight: 500;
+}
+
+.num {
+  font-variant-numeric: tabular-nums lining-nums;
+  text-align: right;
+}

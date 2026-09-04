@@ -1,0 +1,126 @@
+/* ==========================================================================
+   Trackcor Tools — design tokens
+   Source of truth. Vendored into tools/src/styles.scss in the Angular app.
+   Generated from the Claude Design canvas, September 2026.
+
+   Two rules govern everything below:
+   1. The primary blue never carries status meaning.
+   2. Semantic colour and rigging period colour are separated by SHAPE,
+      not by hue. See --tc-period-* at the bottom.
+   ========================================================================== */
+
+:root {
+  /* --- Primary -----------------------------------------------------------
+     "Kansanshi" blue. Institutional, slightly cool, reads as infrastructure.
+     Holds as an 11px label, a 6px progress fill and a 1px focus ring.
+     Rejected: #27406E (too near ink, focus ring stops registering in sun)
+               #3B7DE8 (bright enough that a blue fill reads as a status)   */
+  --tc-primary:        #2A5EBF;
+  --tc-primary-dark:   #1E4899;
+  --tc-primary-tint:   #EEF3FC;
+  --tc-primary-edge:   #E9EDF3;
+
+  /* --- Reserved semantics ------------------------------------------------
+     Never decorative. Each passes WCAG AA on white at normal text size.
+     Do not brighten them.                                                  */
+  --tc-critical:       #B02A20;  /* dot + text, 5.9:1 — withheld, overdue, expired, breaching */
+  --tc-critical-tint:  #FBF0EE;
+  --tc-critical-edge:  #E8C5BF;
+  --tc-critical-deep:  #8E211A;
+
+  --tc-warning-dot:    #C48A0B;  /* dot only */
+  --tc-warning:        #8A5A00;  /* text darkens to hold AA on white, 5.4:1 */
+  --tc-warning-tint:   #FDF6E7;
+  --tc-warning-edge:   #EBDCB4;
+
+  --tc-good:           #1F6B4A;  /* 5.3:1 — available, compliant, improving. States, never rewards */
+  --tc-good-tint:      #EDF5F0;
+
+  --tc-neutral-dot:    #8E97A3;
+  --tc-neutral:        #6B7480;  /* 4.7:1 — flat or informational. Most of the interface lives here */
+  --tc-neutral-tint:   #F4F5F7;
+
+  /* --- Ink and text ------------------------------------------------------ */
+  --tc-ink:            #101418;  /* body copy, values, page titles */
+  --tc-text-strong:    #3A424C;  /* nav at rest, secondary emphasis */
+  --tc-text:           #6B7480;  /* supporting copy, derivation lines */
+  --tc-text-muted:     #8E97A3;  /* column headers, labels, metadata */
+  --tc-text-faint:     #B4BBC4;
+
+  /* --- Surfaces and borders ---------------------------------------------- */
+  --tc-canvas:         #FFFFFF;
+  --tc-surface:        #FBFCFD;
+  --tc-surface-raised: #FAFBFC;
+  --tc-surface-sunk:   #F4F5F7;
+  --tc-surface-panel:  #F2F4F6;
+
+  --tc-border:         #E3E6EA;  /* table rules, dividers, card edges */
+  --tc-border-strong:  #CFD4DA;  /* active or emphasised edges */
+  --tc-border-light:   #EEF0F3;  /* inactive pipeline stages, faint separation */
+
+  /* --- Brand ------------------------------------------------------------
+     The device survives; the red does not. Red competes with withheld and
+     gold at marketing weight competes with warning. In the product the
+     short rule becomes ink and gold darkens.
+
+     --tc-gold is permitted in EXACTLY ONE PLACE: a 2px rule under a page
+     title. Never a fill, a dot, text or a background. Warning never appears
+     as a rule. The two cannot be mistaken because they never share a shape. */
+  --tc-rule-short:     #101418;
+  --tc-gold:           #B08A2E;
+
+  /* --- Type -------------------------------------------------------------- */
+  --tc-font:           Geist, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --tc-font-mono:      "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --tc-size-page-title:    28px;
+  --tc-size-page-subtitle: 15px;
+  --tc-size-section-label: 11px;
+  --tc-size-column-header: 11px;
+  --tc-size-body:          14px;
+  --tc-size-hero:          42px;
+  --tc-size-table-num:     13.5px;
+  --tc-size-system-value:  13px;
+  --tc-size-derivation:    12.5px;
+
+  --tc-track-title:    -0.015em;
+  --tc-track-hero:     -0.02em;
+  --tc-track-label:    0.09em;
+  --tc-track-column:   0.08em;
+
+  /* --- Spacing, 4px base ------------------------------------------------- */
+  --tc-space-1:  4px;   /* icon to label */
+  --tc-space-2:  8px;   /* within a control */
+  --tc-space-3:  12px;  /* stacked lines */
+  --tc-space-4:  20px;  /* card padding */
+  --tc-space-5:  32px;  /* between blocks */
+  --tc-space-6:  48px;  /* page gutter */
+  --tc-space-7:  64px;  /* hero to queue */
+
+  /* --- Radius and elevation ---------------------------------------------
+     Borders and tint carry hierarchy. One soft shadow exists and it
+     belongs to overlays only.                                              */
+  --tc-radius-sm: 4px;
+  --tc-radius:    6px;
+  --tc-radius-lg: 10px;
+  --tc-shadow-overlay: 0 8px 28px rgba(16, 20, 24, 0.12);
+
+  /* --- Focus ------------------------------------------------------------- */
+  --tc-focus-ring: 0 0 0 1px var(--tc-primary), 0 0 0 4px var(--tc-primary-tint);
+
+  /* --- Rigging period colours -------------------------------------------
+     A SEPARATE VOCABULARY from the semantics above. These are physical
+     tape on a sling, so they cannot be recoloured to suit the palette.
+     They are kept apart from status by shape and containment instead:
+
+       Period colour  = 16px SQUARE + a mono period name, only ever inside
+                        a band or a cell labelled as a period.
+       Status         = CIRCLE + a sentence-case word. Never a square.
+
+     A red square means the item passed inspection in the red quarter.
+     A red dot means the item is withheld. They never share a column.      */
+  --tc-period-red:    #C1121F;
+  --tc-period-green:  #2E7D32;
+  --tc-period-blue:   #1565C0;
+  --tc-period-yellow: #F9A825;
+}
