@@ -1,0 +1,280 @@
+/* ==========================================================================
+   Trackcor Tools — mobile delta
+   Layers on top of ../tokens.css. Load that first; it is unchanged here.
+   Derived from the Claude Design canvas at ./index.html, September 2026.
+
+   This file is the DELTA and nothing else. No colour is redefined, because
+   the palette does not change between platforms. What changes is the size
+   of a target, the height of a control, the inset it has to clear and where
+   on the screen it is allowed to sit.
+
+   The rule that governs the whole app: never block the person in front of
+   you. Not on network, not on sync, not on a photo, not on a confirmation.
+   ========================================================================== */
+
+:root {
+  /* --- Reference frames ---------------------------------------------------
+     The canvas is drawn at these two sizes. Everything below is measured
+     inside them, so a value that fits here fits the smallest shipping phone. */
+  --tcm-frame-ios:      402px;  /* 402 × 874 */
+  --tcm-frame-android:  412px;  /* 412 × 892 */
+
+  /* --- Touch targets ------------------------------------------------------
+     56px on primary, not the 48px the web allows. Riggers and fitters wear
+     gloves, and no two targets are adjacent.                                */
+  --tcm-target-primary:    56px;  /* commit bar, inputs, anything committing custody */
+  --tcm-target-secondary:  52px;  /* outlined, always second, never above the primary */
+  --tcm-target-min:        48px;  /* absolute floor, list rows and chrome only */
+
+  /* --- Platform insets ----------------------------------------------------
+     Same 56px control, different padding. The commit bar clears the inset
+     with its own padding, never with a spacer view.                         */
+  --tcm-inset-ios:      34px;  /* home indicator */
+  --tcm-inset-android:  14px;  /* gesture pill, which lives inside the frame */
+  --tcm-header-ios:     60px;  /* our header sits this far below the status bar */
+
+  /* --- Layout -------------------------------------------------------------
+     One gutter. The screen is 402px wide and does not deserve a second.     */
+  --tcm-gutter:        16px;
+  --tcm-card-pad:      20px;
+  --tcm-card-radius:   12px;
+  --tcm-control-radius: 10px;
+  --tcm-camera-height: 196px;  /* a component, not a screen: manual entry stays visible */
+  --tcm-camera-ink:    #16191D;
+
+  /* --- Type on a device ---------------------------------------------------
+     Bigger than the web across the board. A washed-out screen at full
+     brightness in direct sun loses the bottom of the web scale.             */
+  --tcm-size-screen-title:  25px;  /* the h1 inside a screen */
+  --tcm-size-asset-hero:    32px;  /* mono, the asset number under confirmation */
+  --tcm-size-asset-field:   20px;  /* mono, the asset number being typed */
+  --tcm-size-status:        17px;  /* the status word, and the commit bar label */
+  --tcm-size-body:          16px;
+  --tcm-size-supporting:    15px;
+  --tcm-size-note:          14px;
+  --tcm-size-derivation:    13.5px;
+  --tcm-size-label:         11px;  /* uppercase, 0.08em, step and section labels */
+
+  --tcm-dot: 12px;  /* the status dot. A circle, never a square */
+}
+
+/* --------------------------------------------------------------------------
+   Commit bar
+   56px, full width, in the bottom third on both platforms, because the other
+   hand is holding a tool, a rail or a torch. This inverts the web, where the
+   primary action sits top right. Nothing that matters goes in a top corner.
+   -------------------------------------------------------------------------- */
+.tcm-commit {
+  padding: 14px var(--tcm-gutter) calc(var(--tcm-inset-ios) + 2px);
+  border-top: 1px solid var(--tc-border-light);
+}
+.tcm-commit[data-platform="android"] { padding-bottom: var(--tcm-inset-android); }
+
+.tcm-commit__note {
+  font-size: var(--tcm-size-note);
+  color: var(--tc-text);
+  margin-bottom: 10px;
+}
+
+.tcm-commit__action {
+  height: var(--tcm-target-primary);
+  border-radius: var(--tcm-control-radius);
+  background: var(--tc-primary);
+  color: var(--tc-canvas);
+  font-size: var(--tcm-size-status);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   Offline, which is the normal state and not an error state
+   A persistent slim band. Never a toast, never a spinner, never a sound.
+   -------------------------------------------------------------------------- */
+.tcm-offline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px var(--tcm-gutter);
+  background: var(--tc-warning-tint);
+  border-top: 1px solid var(--tc-warning-edge);
+  border-bottom: 1px solid var(--tc-warning-edge);
+  font-size: var(--tcm-size-note);
+  color: #6B4B08;
+}
+.tcm-offline .lucide { width: 15px; height: 15px; color: var(--tc-warning); }
+
+/* Reconnect confirms, it does not celebrate: a band, a count, a time. */
+.tcm-reconnected {
+  background: var(--tc-good-tint);
+  border-top: 1px solid #C9E0D3;
+  border-bottom: 1px solid #C9E0D3;
+  color: var(--tc-good);
+}
+
+/* --------------------------------------------------------------------------
+   Status
+   A 12px circle plus a sentence-case word, with the derivation printed
+   beneath it and indented past the dot. Never a square: a square is a
+   rigging period. Never an icon alone.
+   -------------------------------------------------------------------------- */
+.tcm-status { display: flex; align-items: center; gap: 10px; }
+.tcm-status__dot { width: var(--tcm-dot); height: var(--tcm-dot); border-radius: 50%; }
+.tcm-status__word { font-size: var(--tcm-size-status); font-weight: 500; }
+.tcm-status__derivation {
+  margin-top: 4px;
+  padding-left: 22px;  /* clears the dot, so the word and the reason share an edge */
+  font-size: var(--tcm-size-derivation);
+  color: var(--tc-text);
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   Refusal
+   Blocked is not an error. The panel TAKES THE COMMIT SLOT, so the thumb
+   lands on the sensible path. It is not an iOS alert and not an Android
+   dialog, because both can be dismissed without choosing a path.
+   -------------------------------------------------------------------------- */
+.tcm-refusal {
+  background: var(--tc-critical-tint);
+  border-top: 1px solid var(--tc-critical-edge);
+  padding: 20px var(--tcm-gutter) 14px;
+}
+.tcm-refusal__title { font-size: 20px; font-weight: 600; color: var(--tc-critical-deep); }
+.tcm-refusal__body { margin-top: 6px; font-size: var(--tcm-size-body); color: #6D2A24; line-height: 1.5; }
+.tcm-refusal__rule { margin-top: 6px; font-size: var(--tcm-size-derivation); color: #8A5148; line-height: 1.5; }
+
+/* The way out is filled and 56px. The override is outlined and 52px, and
+   renders only for a clerk who holds the permission. */
+.tcm-refusal__primary {
+  height: var(--tcm-target-primary);
+  margin-top: 16px;
+  border-radius: var(--tcm-control-radius);
+  background: var(--tc-critical);
+  color: var(--tc-canvas);
+  font-size: var(--tcm-size-status);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.tcm-refusal__override {
+  height: var(--tcm-target-secondary);
+  margin-top: 10px;
+  border-radius: var(--tcm-control-radius);
+  border: 1px solid var(--tc-critical-edge);
+  background: var(--tc-canvas);
+  color: var(--tc-critical-deep);
+  font-size: var(--tcm-size-supporting);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   Capture
+   The camera is a component, not a screen. It only warms while its step is
+   on screen, because the shift is twelve hours long.
+   -------------------------------------------------------------------------- */
+.tcm-camera {
+  position: relative;
+  height: var(--tcm-camera-height);
+  border-radius: var(--tcm-card-radius);
+  background: var(--tcm-camera-ink);
+  overflow: hidden;
+}
+.tcm-camera__hint {
+  position: absolute; left: 0; right: 0; top: 14px;
+  text-align: center;
+  font-size: var(--tcm-size-note);
+  color: rgba(255, 255, 255, 0.74);
+}
+.tcm-camera__torch {
+  position: absolute; left: 14px; bottom: 14px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+  font-size: var(--tcm-size-supporting);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Manual entry is never a fallback and is never covered by the keyboard.
+   The field sits directly above the pad. */
+.tcm-field {
+  height: var(--tcm-target-primary);
+  border: 1px solid var(--tc-border);
+  border-radius: var(--tcm-control-radius);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--tcm-gutter);
+  font-family: var(--tc-font-mono);
+  font-size: var(--tcm-size-asset-field);
+}
+.tcm-field:focus-within {
+  border-color: var(--tc-primary);
+  box-shadow: 0 0 0 3px var(--tc-primary-tint);
+}
+
+/* --------------------------------------------------------------------------
+   Queue
+   Offline there is no server receipt, so the count is the receipt. Two lanes,
+   counted separately, because a photo backlog must never read as unrecorded
+   custody. Photos sync last and block nothing.
+   -------------------------------------------------------------------------- */
+.tcm-lane {
+  border: 1px solid var(--tc-border-strong);
+  border-radius: var(--tcm-card-radius);
+  padding: 18px var(--tcm-card-pad);
+}
+.tcm-lane--photos { border-color: var(--tc-border); }
+.tcm-lane__count { font-size: 34px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.tcm-lane--photos .tcm-lane__count { color: var(--tc-text-strong); }
+.tcm-lane__track { height: 5px; border-radius: 3px; background: var(--tc-border-light); overflow: hidden; margin-top: 16px; }
+.tcm-lane__fill { height: 100%; background: var(--tc-primary); }
+.tcm-lane--photos .tcm-lane__fill { background: var(--tc-neutral-dot); }
+
+/* --------------------------------------------------------------------------
+   Screen furniture
+   -------------------------------------------------------------------------- */
+.tcm-screen { padding: 18px var(--tcm-gutter) 0; }
+.tcm-screen__title { margin: 0; font-size: var(--tcm-size-screen-title); font-weight: 600; letter-spacing: -0.016em; }
+.tcm-screen__subtitle { margin: 6px 0 0; font-size: var(--tcm-size-supporting); color: var(--tc-text); line-height: 1.5; }
+
+.tcm-step-label {
+  font-size: var(--tcm-size-label);
+  font-weight: 600;
+  letter-spacing: var(--tc-track-column);
+  text-transform: uppercase;
+  color: var(--tc-text-muted);
+}
+
+.tcm-card {
+  border: 1px solid var(--tc-border);
+  border-radius: var(--tcm-card-radius);
+  padding: var(--tcm-card-pad);
+}
+/* A step that no longer applies is dimmed, not removed: the clerk keeps the
+   shape of the transaction they were part way through. */
+.tcm-card--inert { opacity: 0.45; }
+
+.tcm-asset { font-family: var(--tc-font-mono); font-size: var(--tcm-size-asset-hero); font-weight: 500; line-height: 1; }
+
+/* Back. iOS gets a labelled chevron mirroring the swipe, Android a bare
+   arrow, because there the gesture is the real affordance. */
+.tcm-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--tc-primary);
+  font-size: var(--tcm-size-status);
+  min-height: var(--tcm-target-min);
+}
+.tcm-back[data-platform="ios"] { padding-top: var(--tcm-header-ios); }
