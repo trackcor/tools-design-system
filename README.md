@@ -2,7 +2,12 @@
 
 Tokens, components and screen references for **Trackcor Tools**, the managed tooling platform for mine sites. Modern SaaS ERP register: clean, calm, plenty of white.
 
-**Live site:** [trackcor.github.io/tools-design-system](https://trackcor.github.io/tools-design-system/)
+**Live:**
+
+- **Web canvas** — [trackcor.github.io/tools-design-system](https://trackcor.github.io/tools-design-system/)
+- **Mobile canvas** — [trackcor.github.io/tools-design-system/mobile](https://trackcor.github.io/tools-design-system/mobile/)
+
+Both read on a phone as well as on a desktop.
 
 | What | Where |
 |---|---|
