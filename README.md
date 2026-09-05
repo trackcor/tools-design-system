@@ -59,12 +59,31 @@ project/
 ├── components.css  ← .tc-* product UI
 ├── tokens.html     ← CSS reference page, built from the tokens
 ├── favicon.svg
+├── responsive.css  ← small-screen viewing only, every rule behind a media query
 └── mobile/
     ├── index.html        ← the mobile canvas, iOS and Android side by side
     ├── mobile.css        ← the --tcm-* delta and .tcm-* classes, layered on tokens.css
+    ├── responsive.css    ← same contract, for this canvas
     ├── ios-frame.jsx     ← device chrome the canvas draws the screens inside
     └── android-frame.jsx
 ```
+
+### Reading the canvases on a phone
+
+Both canvases are authored for a wide screen, and both are now readable on a
+phone. `responsive.css` beside each one holds that and only that: **every
+declaration sits inside a media query**, so above 900px nothing in it matches
+and the canvas renders exactly as authored. It restates no colour, no type
+scale and no spacing scale. It reduces page gutters, stacks column sets that
+were laid out for 1520px, and lets the register scroll inside its own card
+rather than pushing the page sideways. On the mobile canvas the device frames
+are scaled whole rather than reflowed, because 402 and 412 CSS pixels is the
+screen, not a layout.
+
+`tokens.html` was written responsive and needs none of this.
+
+If the canvas is ever re-exported from Claude Design, the one line to put back
+is the `<link rel="stylesheet" href="./responsive.css">` in its `<head>`.
 
 `index.html` is the authored design and is the thing to look at. The three CSS files are the same decisions expressed as code, for the Angular app to vendor; they are derived from the canvas, not the other way round. If the two ever disagree, **the canvas is the design and the CSS is the bug.**
 

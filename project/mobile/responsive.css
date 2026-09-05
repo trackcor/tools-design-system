@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Trackcor Tools mobile canvas — small-screen viewing
+
+   The same contract as the web canvas's `responsive.css`: every declaration
+   sits inside a media query, so above 900px this file matches nothing and
+   the canvas renders exactly as authored. It exists so a supervisor can open
+   the canvas on the phone the app runs on.
+
+   One thing here is different, and it is the whole point of this canvas: the
+   device frames are 402 and 412 CSS pixels because that IS the screen. They
+   are not a layout to reflow. On a narrow viewport the frame is scaled as a
+   whole, so what is drawn stays exactly what ships, only smaller.
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  /* --- The platform delta comes out of the sidebar ----------------------
+     At 1800px the notes sit beside the devices they describe. Underneath
+     them is the next best thing; a 372px column on a phone is neither.   */
+  [style*="grid-template-columns: 1fr 372px"],
+  [style*="grid-template-columns: 1.5fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  [style*="grid-template-columns: repeat(3, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* A section header is the number and title against the platform chips.
+     At this width the chips drop under the title rather than squeezing it
+     into a column three words wide. */
+  [style*="grid-template-columns: 1fr auto"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    align-items: start !important;
+  }
+
+  /* The sidebar's left edge was a divider between two columns. Once it is
+     underneath, that edge is a rule across the top instead. */
+  [style*="border-left: 1px solid rgb(238, 240, 243)"] {
+    border-left: 0 !important;
+    border-top: 1px solid rgb(238, 240, 243) !important;
+  }
+  [style*="border-right: 1px solid rgb(238, 240, 243)"] {
+    border-right: 0 !important;
+  }
+
+  /* --- Page and section padding, outside the devices ---------------------
+     The `:not([data-om-starter] *)` guard keeps every one of these off the
+     screens inside the frames, where the padding is the design.           */
+  [style*="padding: 64px 48px 120px"]:not([data-om-starter] *) {
+    padding: 28px 16px 64px !important;
+  }
+  [style*="padding: 48px 40px 56px"]:not([data-om-starter] *) {
+    padding: 28px 12px 34px !important;
+  }
+  [style*="padding: 34px 40px 30px"]:not([data-om-starter] *) {
+    padding: 24px 16px 22px !important;
+  }
+  [style*="padding: 40px 32px"]:not([data-om-starter] *) {
+    padding: 26px 16px !important;
+  }
+  [style*="padding: 26px 28px"]:not([data-om-starter] *) {
+    padding: 20px 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* --- The frames ------------------------------------------------------
+     Scaled whole, never reflowed: 402px at 0.84 clears a 390px screen with
+     its gutters, and every proportion inside the screen is preserved.
+     `zoom` scales the layout box as well as the paint, which is what keeps
+     the caption underneath in the right place. Where a browser does not
+     support it, the frame simply renders at full size as it does today.  */
+  [data-om-starter="ios-frame"],
+  [data-om-starter="android-frame"] { zoom: 0.84; }
+
+  /* The canvas's own display sizes, outside the devices. */
+  [style*="font-size: 46px"]:not([data-om-starter] *) { font-size: 30px !important; }
+  [style*="font-size: 34px"]:not([data-om-starter] *) { font-size: 26px !important; }
+  [style*="font-size: 32px"]:not([data-om-starter] *) { font-size: 25px !important; }
+}
+
+@media (max-width: 380px) {
+  [data-om-starter="ios-frame"],
+  [data-om-starter="android-frame"] { zoom: 0.72; }
+}
