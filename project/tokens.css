@@ -21,11 +21,10 @@
   --tc-primary-edge:   #E9EDF3;
 
   /* --- The company mark --------------------------------------------------
-     Trackcor Africa's own charcoal and red (brand pack, October 2026). They
-     live inside the mark and nowhere else: in the product red means
-     withheld. See brand/README.md.                                         */
+     Trackcor Africa's charcoal (brand pack, October 2026), for the hammer
+     head. The handle takes --tc-primary: in the product red means withheld,
+     so the brand red never appears in Tools. See brand/README.md.         */
   --tc-brand-ink:      #231F20;
-  --tc-brand-red:      #DB1F2D;
 
   /* --- Reserved semantics ------------------------------------------------
      Never decorative. Each passes WCAG AA on white at normal text size.
